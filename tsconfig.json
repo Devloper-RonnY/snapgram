@@ -5,9 +5,10 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "allowJs": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "global.d.ts"],
