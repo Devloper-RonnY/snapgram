@@ -5,6 +5,8 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "allowJs": true,
+
+    //shadcn url 
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"],
