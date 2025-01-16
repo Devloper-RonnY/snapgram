@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "allowJs": true,
+    "module": "es2020",
 
     //shadcn url 
     "baseUrl": ".",
