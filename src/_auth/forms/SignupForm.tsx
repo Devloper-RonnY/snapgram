@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from '@/components/ui/button'
+import { useToast } from "@/hooks/use-toast"
 import { useForm } from "react-hook-form"
 import {
   Form,
@@ -21,7 +22,7 @@ import { createUserAccount } from "@/lib/appwrite/api"
 
 const SignupForm = () => {
   const isLoading = false;
-
+  const toast = useToast()
   
    // 1. Define your form.
    const form = useForm<z.infer<typeof SignupValidarion>>({
@@ -41,9 +42,17 @@ const SignupForm = () => {
       username: values.username || "", 
       email: values.email || "", 
       password: values.password || ""  
+
     });
 
-    console.log(newUser);
+    if(!newUser){
+      return toast.toast({
+        title: "Sign up failed. please try again",
+      })
+    }
+
+    // const session = await signInaccount()
+    
 }
 
 
