@@ -4,7 +4,11 @@ import SignupForm from './_auth/forms/SignupForm'
 import { Home } from './_root/pages'
 import './globals.css'
 import { Route, Routes } from 'react-router-dom'
-import { Toaster } from "@/components/ui/toaster"
+// import { Toaster } from "@/components/ui/toaster"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import RootLayout from './_root/RootLayout'
+
 
 const App = () => {
   return (
@@ -17,11 +21,12 @@ const App = () => {
         </Route>
 
         {/* Private Routes */}
-        <Route element={<AuthLayout />}>
+        <Route element={<RootLayout />}>
         <Route index element={<Home />}/>
         </Route>
       </Routes>
-      <Toaster />
+      <ToastContainer />
+      {/* <Toaster /> */}
     </main>
   )
 }
