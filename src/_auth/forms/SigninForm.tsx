@@ -40,10 +40,11 @@ const SigninForm = () => {
 
   async function onSubmit(values: z.infer<typeof SigninValidarion>) {
     setIsSigningIn(true); // Start loader
+
     try {
       const isLoggedIn = await checkAuthUser();
       if (isLoggedIn) {
-        toast.info("You're already logged in.");
+         toast.success(`Welcome, ${values.email.split("@")[0]} ! 🎉`);
         navigate("/");
         return;
       }

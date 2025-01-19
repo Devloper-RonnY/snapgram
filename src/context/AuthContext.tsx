@@ -1,4 +1,4 @@
-import { getCurrentAccount } from '@/lib/appwrite/api';
+import { getCurrentUser } from '@/lib/appwrite/api';
 import { IContextType, IUser } from '@/types'
 import { useContext, createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
@@ -32,33 +32,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const checkAuthUser = async () => {
         try {
-        const {currentAccount} = await getCurrentAccount();  
-        
-        if(currentAccount){
-            setUser({
-                id: currentAccount.$id,
-                name: currentAccount.name,
-                username: currentAccount.username,
-                email: currentAccount.email,
-                imageUrl: currentAccount.imageUrl,
-                bio: currentAccount.bio
-            })
-
-            setIsAuthenticated(true);
-
-            return true;
-        }
-
-        return false;
-
-
+            const { currentAccount } = await getCurrentUser();
+            
+            if (currentAccount) {
+                setUser({
+                    id: currentAccount.$id,
+                    name: currentAccount.name,
+                    username: currentAccount.username,
+                    email: currentAccount.email,
+                    imageUrl: currentAccount.imageUrl,
+                    bio: currentAccount.bio
+                });
+    
+                setIsAuthenticated(true);
+                return true;
+            }
+    
+            setIsAuthenticated(false); // Ensure auth state is false if no user is found
+            return false;
         } catch (error) {
-          console.log(error);
-          return error;
+            console.log("Auth check error:", error);
+            setIsAuthenticated(false); // Ensure auth state resets
+            return false;
         } finally {
-          setIsLoading(false)
+            setIsLoading(false);
         }
     };
+    
 
     useEffect(() => {
         if(

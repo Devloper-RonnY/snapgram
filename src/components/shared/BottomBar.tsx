@@ -1,9 +1,9 @@
 import React from 'react'
 
-const bottomBar = () => {
+const BottomBar = () => {
   return (
-    <div>bottomBar</div>
+    <div>BottomBar</div>
   )
 }
 
-export default bottomBar
+export default BottomBar

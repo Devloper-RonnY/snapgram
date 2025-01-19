@@ -22,6 +22,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {EyeOff, Eye} from "lucide-react"
 import { useState } from "react";
+import { signOutAccount } from "@/lib/appwrite/api";
 
 const SignupForm = () => {
   const { checkAuthUser } = useUserContext();
@@ -42,6 +43,13 @@ const SignupForm = () => {
 
   async function onSubmit(values: z.infer<typeof SignupValidarion>) {
     try {
+      // Ensure no existing session
+      const isLoggedIn = await checkAuthUser();
+      if (isLoggedIn) {
+        await signOutAccount();
+      }
+
+      // Create user account
       const newUser = await createUserAccount({
         name: values.name || "",
         username: values.username || "",
@@ -54,36 +62,25 @@ const SignupForm = () => {
         return;
       }
 
-      const isLoggedIn = await checkAuthUser();
+      // Sign in after successful signup
+      const session = await signInAccount({
+        email: values.email,
+        password: values.password,
+      });
 
-      if (!isLoggedIn) {
-        const session = await signInAccount({
-          email: values.email,
-          password: values.password,
-        });
-
-        if (!session) {
-          toast.error("Sign in failed. Please try again.");
-          return;
-        }
+      if (!session) {
+        toast.error("Sign in failed. Please try again.");
+        return;
       }
 
-      // Show a single welcome message instead of multiple popups
       toast.success(`Welcome, ${values.username}! 🎉`);
-
       form.reset();
       navigate("/");
-      
     } catch (error) {
       console.error("Error signing in:", error);
-
-      if (error.message.includes("Creation of a session is prohibited")) {
-        navigate("/"); // Redirect if already logged in
-      } else {
-        toast.error("An error occurred. Please try again later.");
-      }
+      toast.error("An error occurred. Please try again later.");
     }
-  }
+}
 
   return (
     <Form {...form}>
