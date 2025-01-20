@@ -73,7 +73,7 @@ const SignupForm = () => {
         return;
       }
 
-      toast.success(`Welcome, ${values.username}! 🎉`);
+      toast.success(`Welcome, ${values.username} ! 🎉`);
       form.reset();
       navigate("/");
     } catch (error) {
@@ -99,7 +99,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" {...field} placeholder="enter your name"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -112,7 +112,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" {...field} placeholder="enter username"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,7 +125,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" {...field} placeholder="enter your email"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,13 +142,17 @@ const SignupForm = () => {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <div className="relative">
-                  <Input type={showPassword ? "text" : "password"} className="shad-input" {...field} />
+                  <Input type={showPassword ? "text" : "password"} 
+                  className="shad-input" 
+                  placeholder="enter your password" 
+                  {...field}
+                   />
                   <button
                         type="button"
                         className="absolute right-3 top-1/2 -translate-y-1/2"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? < EyeOff size={24}/> : <Eye size={24} />}
+                        {showPassword ? <EyeOff size={24} /> : <Eye size={24} />}
                       </button>
                   </div>
                 </FormControl>

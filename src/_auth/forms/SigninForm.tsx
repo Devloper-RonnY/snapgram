@@ -60,7 +60,7 @@ const SigninForm = () => {
       }
 
       await checkAuthUser();
-      toast.success(`Welcome, ${values.email.split("@")[0]}! 🎉`);
+      toast.success(`Welcome, ${values.email.split("@")[0]} ! 🎉`);
       form.reset();
       navigate("/");
       
@@ -94,7 +94,7 @@ const SigninForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" placeholder="enter your email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -116,6 +116,7 @@ const SigninForm = () => {
                         type={showPassword ? "text" : "password"}
                         className="shad-input"
                         {...field}
+                        placeholder="enter your password"
                       />
                       <button
                         type="button"
