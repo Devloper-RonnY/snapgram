@@ -52,8 +52,17 @@ export async function saveUserToDB(user: {
   }
 }
 
+
 export async function signInAccount(user: { email: string; password: string }) {
   try {
+    try {
+      await account.deleteSession("current");
+      console.log("🔄 Previous session cleared.");
+    } catch (error) {
+      console.warn("⚠️ No active session found or failed to clear session.");
+    }
+
+    // Create a new session
     const session = await account.createEmailPasswordSession(user.email, user.password);
     
     if (!session) throw new Error("❌ Login failed. Invalid credentials.");
@@ -65,6 +74,7 @@ export async function signInAccount(user: { email: string; password: string }) {
     return null;
   }
 }
+
 
 
 export async function getAccount() {
