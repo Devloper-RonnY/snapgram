@@ -57,8 +57,6 @@ const SignupForm = () => {
         password: values.password || "",
       });
 
-      console.log(newUser)
-
       if (!newUser) {
         toast.error("Sign up failed. Please try again.");
         return;

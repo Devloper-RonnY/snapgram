@@ -34,7 +34,7 @@ export async function saveUserToDB(user: {
   accountId: string;
   email: string;
   name: string;
-  imageUrl?: string;
+  imageUrl: string;
   username?: string;
 }) {
   try {
@@ -96,23 +96,29 @@ export async function getAccount() {
 
 export async function getCurrentUser() {
   try {
+    console.log("Fetching current account...");
     const currentAccount = await getAccount();
     if (!currentAccount) {
       console.warn("⚠️ No authenticated user found.");
       return null;
     }
 
+    console.log("Current account:", currentAccount);
+
+    console.log("Querying database for user...");
     const currentUser = await database.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       [Query.equal("accountId", currentAccount.$id)]
     );
+    console.log("Database query result:", currentUser);
 
     if (!currentUser.documents.length) {
       console.warn("⚠️ User not found in database.");
       return null;
     }
 
+    console.log("Authenticated user data:", currentUser.documents[0]);
     return currentUser.documents[0];
   } catch (error) {
     console.error("❌ Error getting current user:", error);
