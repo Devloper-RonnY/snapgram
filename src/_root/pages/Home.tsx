@@ -1,9 +1,28 @@
-import React from 'react'
+import Loader from "@/components/shared/Loader";
+import PostCard from "@/components/shared/PostCard";
+import { useGetRecentPosts } from "@/lib/react-query/queriesandMutations"; // Your query hook
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  const { data: posts, isPending: isPostLoading, isError: isErrorPosts } = useGetRecentPosts();
 
-export default Home
+  return (
+    <div className="flex flex-1">
+      <div className="home-container">
+        <div className="home-posts">
+          <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
+          {isPostLoading && !posts ? (
+            <Loader />
+          ) : (
+            <ul className="flex flex-1 flex-col gap-9 w-full">
+              {posts?.documents.map((post) => (
+                <PostCard key={post.$id} post={post} />
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

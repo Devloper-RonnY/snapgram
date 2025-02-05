@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     
             if (user) {
                 setUser({
-                    id: user.accountId, // Ensure the correct ID is used
+                    id: user.$id || "", // Ensure it correctly maps to the Appwrite user ID
                     name: user.name || "User", // Fallback for missing name
                     username: user.username || "",
                     email: user.email || "",

@@ -21,24 +21,27 @@ export type INavLink = {
     imageUrl: URL | string;
     file: File[];
   };
-  
+
   export type INewPost = {
-    userId: string;
+    creater: string; // Must be a valid User Document ID
     caption: string;
-    file: File[];
     location?: string;
-    tags?: string;
-  };
-  
-  export type IUpdatePost = {
-    postId: string;
-    caption: string;
-    imageId: string;
-    imageUrl: URL;
-    file: File[];
-    location?: string;
-    tags?: string;
-  };
+    tags?: string[]; // Use an array for tags
+    imageId: string; 
+    imageUrl: string; 
+    file: File[]; // ✅ Add this to handle file uploads
+};
+
+export type IUpdatePost = {
+  postId: string;
+  caption: string;
+  imageId: string;
+  imageUrl: string;
+  file: File | File[];  // ✅ Accepts both a single file and an array
+  location?: string;
+  tags?: string;
+};
+
   
   export type IUser = {
     id: string;
