@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import { InView, useInView } from 'react-intersection-observer';
 
 const Explore = () => {
-  const { ref, InView } = useInView()
+  const { ref, inView } = useInView()
   const { data : posts, fetchNextPage, hasNextPage} = useGetPosts();
 
   const [searchValue, setSearchValue] = useState('')
